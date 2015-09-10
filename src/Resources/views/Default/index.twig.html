@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html ng-app="websiteApp" ng-controller="HomeController" lang="pt-BR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+    <!-- BEGIN Metadata -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- END Metadata -->
+
+    <!-- BEGIN seo -->
+    <!-- <meta name="twitter:card" content="summary"/> -->
+    <!-- <meta name="twitter:site" content="@CekurteSistemas"/> -->
+    <!-- <meta name="twitter:domain" content="Nootícias"/> -->
+    <!-- <meta name="twitter:creator" content="@CekurteSistemas"/> -->
+    <!-- <meta property="og:locale" content="pt_BR" /> -->
+    <!-- <meta property="og:site_name" content="Nootícias" /> -->
+    <!-- <meta property="og:title" content="" /> -->
+    <!-- <meta property="og:url" content="" /> -->
+    <!-- <meta property="og:type" content="website" /> -->
+    <!-- <meta name="description" content=""/> -->
+    <!-- <meta property="og:description" content="" /> -->
+    <!-- <link rel="canonical" href="" /> -->
+    <!-- END seo -->
+
+    <title>{{ title }}</title>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        var baseUrl = '{{ url("change_domain") }}';
+    </script>
+
+    <!-- BEGIN font -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700" rel="stylesheet" type="text/css">
+    <!-- END font -->
+
+    <link rel="stylesheet" href="css/wp-change-domain{{ debug ? '.min' : '' }}.css">
+</head>
+<body>
+    <toast></toast>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h1 class="navbar-brand" href="#">Wordpress</h1>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#"><span class="glyphicon glyphicon-home"></span> Trocar Domínio</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+    <div class="container">
+        <div class="row page-header">
+            <h2 class="pull-left">Trocar Domínio <small>de um site construído em Wordpress</small></h2>
+        </div>
+        <div class="row">
+            <form name="change_domain" class="form-horizontal" role="form" method="POST" ng-submit="change_domain.$valid && submitChangeDomainForm(model)" novalidate>
+
+                <div class="form-group" ng-class="{true: 'has-error', false: 'has-success'}[change_domain.submitted && change_domain.tablePrefix.$invalid]">
+                    <label for="tablePrefix" class="col-lg-2 control-label">Prefixo</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="tablePrefix" name="tablePrefix" ng-model="model.tablePrefix" placeholder="Prefixo utilizado nas tabelas do Wordpress, padrão: wp_" value="wp_" required />
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.tablePrefix.$error.required">Campo obrigatório</span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{true: 'has-error', false: 'has-success'}[change_domain.submitted && change_domain.numberOfBlogs.$invalid]">
+                    <label for="numberOfBlogs" class="col-lg-2 control-label">Multisite</label>
+                    <div class="col-lg-10">
+                        <input type="number" class="form-control" id="numberOfBlogs" name="numberOfBlogs" ng-model="model.numberOfBlogs" placeholder="Se a instalação utilizar as tabelas wp_X_posts informar o número máximo de instalações, o default é um único site" value="1" required />
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.numberOfBlogs.$error.required">Campo obrigatório</span>
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.numberOfBlogs.$error.number">Você deve fornecer um número</span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{true: 'has-error', false: 'has-success'}[change_domain.submitted && change_domain.domainFrom.$invalid]">
+                    <label for="domainFrom" class="col-lg-2 control-label">De</label>
+                    <div class="col-lg-10">
+                        <input type="url" class="form-control" id="domainFrom" name="domainFrom" ng-model="model.domainFrom" placeholder="URL" required />
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.domainFrom.$error.required">Campo obrigatório</span>
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.domainFrom.$error.url">Você deve fornecer uma URL válida</span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{true: 'has-error', false: 'has-success'}[change_domain.submitted && change_domain.domainTo.$invalid]">
+                    <label for="domainTo" class="col-lg-2 control-label">Para</label>
+                    <div class="col-lg-10">
+                        <input type="url" class="form-control" id="domainTo" name="domainTo" ng-model="model.domainTo" placeholder="URL" required />
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.domainTo.$error.required">Campo obrigatório</span>
+                        <span class="help-inline" ng-show="change_domain.submitted && change_domain.domainTo.$error.url">Você deve fornecer uma URL válida</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" ng-click="change_domain.submitted = true" ng-disabled="is_running_requests" class="btn btn-default" value="Gerar SQL"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row" ng-show="sql != ''">
+            <div class="col-lg-offset-2 col-lg-10" hljs source="sql">
+            </div>
+        </div>
+        <footer class="row">
+            <div class="pull-left">
+                <p >© Cekurte Sistemas 2013</p>
+            </div>
+        </footer>
+    </div>
+    <script src="js/wp-change-domain{{ debug ? '.min' : '' }}.js"></script>
+</body>
+</html>
