@@ -3,7 +3,7 @@
 namespace Cekurte\Wordpress\ChangeDomain\Controller;
 
 use Silex\Application;
-use Symfony\Component\HttpKernel\Exception\FatalErrorException;
+use Symfony\Component\Debug\Exception\FatalErrorException;
 
 /**
  * The base WebController

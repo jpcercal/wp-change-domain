@@ -6,6 +6,7 @@ use Cekurte\Wordpress\ChangeDomain\Builder\SqlBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 class ApiController extends WebController
 {
@@ -32,7 +33,7 @@ class ApiController extends WebController
     {
         return [
             new Assert\Type(['type' => '\\Symfony\\Component\\HttpFoundation\\Request']),
-            new Assert\Callback(function ($request, $context) {
+            new Assert\Callback(function (Request $request, ExecutionContextInterface $context) {
 
                 $validator = $context->getValidator();
 
