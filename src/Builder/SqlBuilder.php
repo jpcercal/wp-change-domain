@@ -89,7 +89,9 @@ class SqlBuilder implements SqlBuilderInterface
     {
         $data = [];
 
-        for ($blogId = 1; $blogId <= $this->getNumberOfBlogs(); $blogId++) {
+        $numberOfBlogs = $this->getNumberOfBlogs();
+
+        for ($blogId = 1; $blogId <= $numberOfBlogs; $blogId++) {
 
             $tablePrefixByBlogId = $this->getTablePrefixByBlogId($blogId);
 
