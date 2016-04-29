@@ -1,14 +1,17 @@
-WP Change Domain
-=============
+# WP Change Domain
 
-The wordpress change domain is used to perform an update of url's in a wordpress database project.
+[![Code Climate](https://codeclimate.com/github/cekurte/wp-change-domain/badges/gpa.svg)](https://codeclimate.com/github/cekurte/wp-change-domain)
+[![license](https://img.shields.io/github/license/cekurte/wp-change-domain.svg?style=flat-square)](https://github.com/cekurte/wp-change-domain)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3f5a5e97-7e66-4375-889c-0e011f8b08c8/mini.png)](https://insight.sensiolabs.com/projects/3f5a5e97-7e66-4375-889c-0e011f8b08c8)
 
-Installation
-------------
+The wordpress change domain is used to perform an update of urls in a wordpress database project.
 
-The installation process can be performed by the way:
+## Installation
 
-### Cloning and Install
+- The source files is [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) compatible.
+- Autoloading is [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) compatible.
+
+To install this web application you must run this commands on your terminal.
 
 ```sh
 $ git clone https://github.com/jpcercal/wp-change-domain
@@ -17,36 +20,67 @@ $ composer install
 $ bower install
 $ npm install
 $ grunt production
-```
-
-### Setup
-
-```sh
 $ cp .env.example .env
 $ mkdir -p storage/cache
 $ mkdir -p storage/logs
 $ chmod -Rf 777 storage/
 ```
 
-### Running a WebServer
+### Running a Web Server
+
+After the steps that you followed to install this application, you must run a web server. So, type the following command on your terminal to create a web server.
 
 ```sh
 $ php -S 0.0.0.0:8080 -t public public/index.php
 ```
 
-Documentation
--------------
+Note that this command must be executed on root directory of this web application.
 
-This package is compatible with PSR-2 and PSR-4.
+## Documentation
 
-### Routes
+This web application was developed using AngularJS and with it you can change easily the domain of your wordpress installation.
 
-- */api/change-domain*:
-    - **POST**: Generate a set of sql queries.
-- */*:
-    - **GET**: Application with AngularJS.
+Well, you can see below the HTTP routes where this application will handle your requests.
 
-License
--------
+**GET** */* will load the web application form.
 
-This package is under the MIT license. [See the complete license](https://github.com/jpcercal/wp-change-domain/blob/master/LICENSE).
+**POST** */api/change-domain* will receive a content type as `application/json` with the following content:
+
+```json
+{
+    "tablePrefix": "wp_",
+    "numberOfBlogs": 1,
+    "domainTo": "http://www.your.old.domain",
+    "domainFrom": "http://your.new.domain"
+}
+```
+
+This request will create a response where the content type will be `application/json` with the following content:
+
+```json
+{
+    "sql":[
+        "UPDATE wp_options SET option_value = REPLACE(option_value, \u0027http:\/\/www.your.old.domain\u0027, \u0027http:\/\/your.new.domain\u0027) WHERE option_name = \u0027home\u0027 OR option_name = \u0027siteurl\u0027 OR option_name = \u0027ck_wp_panel_custom\u0027;",
+        "UPDATE wp_posts SET guid = REPLACE(guid, \u0027http:\/\/www.your.old.domain\u0027, \u0027http:\/\/your.new.domain\u0027);",
+        "UPDATE wp_posts SET post_content = REPLACE(post_content, \u0027http:\/\/www.your.old.domain\u0027, \u0027http:\/\/your.new.domain\u0027);",
+        "UPDATE wp_postmeta SET meta_value = REPLACE(meta_value, \u0027http:\/\/www.your.old.domain\u0027, \u0027http:\/\/your.new.domain\u0027);",
+        "UPDATE wp_site SET domain = REPLACE(domain, \u0027http:\/\/www.your.old.domain\u0027, \u0027http:\/\/your.new.domain\u0027);",
+        "UPDATE wp_blogs SET domain = REPLACE(domain, \u0027http:\/\/www.your.old.domain\u0027, \u0027http:\/\/your.new.domain\u0027);"
+    ]
+}
+```
+
+## Todo
+
+1. Cover all statements with PHPunit tests.
+
+Contributing
+------------
+
+1. Give me a star **=)**
+2. Fork it
+3. Create your feature branch (`git checkout -b my-new-feature`)
+4. Make your changes
+5. Commit your changes (`git commit -am 'Added some feature'`)
+6. Push to the branch (`git push origin my-new-feature`)
+7. Create new Pull Request
