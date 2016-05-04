@@ -10,7 +10,7 @@ class DefaultControllerProvider implements ControllerProviderInterface
 {
     public function connect(Application $app)
     {
-        $app['default.controller'] = $app->share(function() use ($app) {
+        $app['default.controller'] = $app->share(function () use ($app) {
             return new DefaultController($app);
         });
 

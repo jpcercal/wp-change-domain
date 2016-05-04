@@ -77,7 +77,7 @@ class SqlBuilder implements SqlBuilderInterface
      *
      * @return string
      */
-    private function getTablePrefixByBlogId($blogId)
+    protected function getTablePrefixByBlogId($blogId)
     {
         return $this->getTablePrefix() . ($blogId === 1 ? '' : $blogId . '_');
     }
@@ -92,7 +92,6 @@ class SqlBuilder implements SqlBuilderInterface
         $numberOfBlogs = $this->getNumberOfBlogs();
 
         for ($blogId = 1; $blogId <= $numberOfBlogs; $blogId++) {
-
             $tablePrefixByBlogId = $this->getTablePrefixByBlogId($blogId);
 
             $data[] = $this->buildSqlOptionsByBlogId($blogId);
@@ -115,7 +114,7 @@ class SqlBuilder implements SqlBuilderInterface
      *
      * @return string
      */
-    private function buildSql($table, $field, $where = null)
+    protected function buildSql($table, $field, $where = null)
     {
         $domainFrom = $this->getDomainFrom();
         $domainTo   = $this->getDomainTo();
@@ -130,7 +129,7 @@ class SqlBuilder implements SqlBuilderInterface
      *
      * @return string
      */
-    private function buildSqlOptionsByBlogId($blogId)
+    protected function buildSqlOptionsByBlogId($blogId)
     {
         $table = $this->getTablePrefixByBlogId($blogId) . 'options';
 
