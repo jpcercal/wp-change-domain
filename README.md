@@ -1,10 +1,12 @@
 # WP Change Domain
 
-[![Code Climate](https://codeclimate.com/github/cekurte/wp-change-domain/badges/gpa.svg)](https://codeclimate.com/github/cekurte/wp-change-domain)
-[![license](https://img.shields.io/github/license/cekurte/wp-change-domain.svg?style=flat-square)](https://github.com/cekurte/wp-change-domain)
+[![Build Status](https://img.shields.io/travis/jpcercal/wp-change-domain/master.svg?style=square)](http://travis-ci.org/jpcercal/wp-change-domain)
+[![Code Climate](https://codeclimate.com/github/jpcercal/wp-change-domain/badges/gpa.svg)](https://codeclimate.com/github/jpcercal/wp-change-domain)
+[![Coverage Status](https://coveralls.io/repos/jpcercal/wp-change-domain/badge.svg)](https://coveralls.io/r/jpcercal/wp-change-domain)
+[![license](https://img.shields.io/github/license/jpcercal/wp-change-domain.svg?style=square)](https://github.com/jpcercal/wp-change-domain)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/3f5a5e97-7e66-4375-889c-0e011f8b08c8/mini.png)](https://insight.sensiolabs.com/projects/3f5a5e97-7e66-4375-889c-0e011f8b08c8)
 
-The wordpress change domain is used to perform an update of urls in a wordpress database project.
+The wp-change-domain application is used to build a set of SQL commands and with that, update all urls of a wordpress installation (with all methods covered by php unit tests).
 
 ## Installation
 
@@ -69,10 +71,6 @@ This request will create a response where the content type will be `application/
     ]
 }
 ```
-
-## Todo
-
-1. Cover all statements with PHPunit tests.
 
 Contributing
 ------------
