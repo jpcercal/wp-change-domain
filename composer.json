@@ -15,7 +15,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
-        "cekurte/tdd": "^1.0"
+        "cekurte/tdd": "^1.0",
+        "fabpot/php-cs-fixer": "*"
     },
     "authors": [
         {
